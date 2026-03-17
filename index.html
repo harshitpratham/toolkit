@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pratham · Tools You Already Have</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1A1916;
+  --ink-mid: #4A4844;
+  --ink-muted: #8A8880;
+  --rule: #E4E2DC;
+  --bg: #FAFAF7;
+  --surface: #FFFFFF;
+  --surface-warm: #F5F3EE;
+  --accent: #1D5C3A;
+  --accent-light: #EAF3DE;
+  --accent-mid: #3B6D11;
+  --amber: #7A4A0A;
+  --amber-light: #FAEEDA;
+  --blue: #0C447C;
+  --blue-light: #E6F1FB;
+  --tag-radius: 4px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Instrument Sans', sans-serif;
+  font-weight: 300;
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* ── HEADER ── */
+.header {
+  border-bottom: 1px solid var(--rule);
+  padding: 3rem 3rem 2.5rem;
+  background: var(--surface);
+  position: relative;
+}
+.header-kicker {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.header-kicker::before {
+  content: '';
+  display: inline-block;
+  width: 18px;
+  height: 1px;
+  background: var(--accent);
+}
+.header h1 {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--ink);
+  max-width: 600px;
+  margin-bottom: 1rem;
+}
+.header h1 em {
+  font-style: italic;
+  color: var(--accent);
+}
+.header p {
+  font-size: 14px;
+  color: var(--ink-mid);
+  max-width: 540px;
+  line-height: 1.7;
+}
+
+/* ── LAYOUT ── */
+.container { max-width: 900px; margin: 0 auto; padding: 3rem 2rem 4rem; }
+
+/* ── SECTION HEADER ── */
+.section-header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--rule);
+}
+.section-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+.section-count {
+  font-size: 10px;
+  color: var(--ink-muted);
+  margin-left: auto;
+}
+
+/* ── APP CARDS ── */
+.apps-list { display: flex; flex-direction: column; gap: 2px; margin-bottom: 3.5rem; }
+
+.app-card {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: border-color 0.15s;
+}
+.app-card:hover { border-color: #C0C0B8; }
+
+.app-header {
+  display: grid;
+  grid-template-columns: 52px 1fr auto;
+  align-items: center;
+  gap: 0;
+  padding: 1rem 1.25rem 1rem 0;
+  cursor: pointer;
+  user-select: none;
+}
+.app-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+}
+.app-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+.app-meta {}
+.app-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+.app-tagline {
+  font-size: 12px;
+  color: var(--ink-muted);
+}
+.app-tags {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+.tag {
+  font-size: 10px;
+  font-weight: 500;
+  padding: 2px 7px;
+  border-radius: var(--tag-radius);
+  letter-spacing: 0.03em;
+}
+.tag-free { background: var(--accent-light); color: var(--accent-mid); }
+.tag-ai { background: var(--blue-light); color: var(--blue); }
+.tag-dev { background: var(--amber-light); color: var(--amber); }
+.app-arrow {
+  font-size: 12px;
+  color: var(--ink-muted);
+  transition: transform 0.2s;
+  flex-shrink: 0;
+  margin-left: 12px;
+}
+.app-card.open .app-arrow { transform: rotate(180deg); }
+
+.app-body {
+  display: none;
+  border-top: 1px solid var(--rule);
+  padding: 1.25rem 1.25rem 1.25rem 52px;
+  background: var(--surface-warm);
+}
+.app-card.open .app-body { display: block; }
+
+.app-body-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+@media (max-width: 580px) {
+  .app-body-inner { grid-template-columns: 1fr; }
+}
+
+.body-section {}
+.body-section h4 {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 0.6rem;
+}
+.use-list { list-style: none; }
+.use-list li {
+  font-size: 13px;
+  color: var(--ink-mid);
+  padding: 4px 0 4px 14px;
+  position: relative;
+  line-height: 1.5;
+  border-bottom: 1px solid var(--rule);
+}
+.use-list li:last-child { border-bottom: none; }
+.use-list li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-size: 11px;
+  top: 5px;
+}
+
+.how-steps { list-style: none; counter-reset: steps; }
+.how-steps li {
+  font-size: 13px;
+  color: var(--ink-mid);
+  padding: 5px 0 5px 24px;
+  position: relative;
+  line-height: 1.5;
+  counter-increment: steps;
+}
+.how-steps li::before {
+  content: counter(steps);
+  position: absolute;
+  left: 0;
+  top: 5px;
+  width: 16px;
+  height: 16px;
+  background: var(--ink);
+  color: white;
+  font-size: 9px;
+  font-weight: 500;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 16px;
+  text-align: center;
+}
+.link-row {
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.app-link {
+  font-size: 12px;
+  color: var(--blue);
+  text-decoration: none;
+  font-weight: 500;
+}
+.app-link:hover { text-decoration: underline; }
+
+/* ── UPGRADE STRIP ── */
+.upgrade-strip {
+  background: var(--ink);
+  color: white;
+  border-radius: 12px;
+  padding: 1.75rem 2rem;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1.5rem;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+@media (max-width: 560px) {
+  .upgrade-strip { grid-template-columns: 1fr; }
+}
+.upgrade-strip h3 {
+  font-family: 'Instrument Serif', serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: white;
+  margin-bottom: 0.4rem;
+}
+.upgrade-strip p {
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.6;
+}
+.upgrade-strip p strong { color: rgba(255,255,255,0.85); font-weight: 400; }
+.upgrade-btn {
+  display: inline-block;
+  background: white;
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 10px 22px;
+  border-radius: 7px;
+  white-space: nowrap;
+  transition: opacity 0.15s;
+}
+.upgrade-btn:hover { opacity: 0.85; }
+
+/* ── FOOTER ── */
+.footer {
+  text-align: center;
+  padding: 2rem;
+  font-size: 11px;
+  color: var(--ink-muted);
+  border-top: 1px solid var(--rule);
+  letter-spacing: 0.03em;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-kicker">Pratham International · IT &amp; Tools</div>
+  <h1>Tools you already have.<br><em>Probably not using.</em></h1>
+  <p>Your current Google Workspace license includes a set of powerful apps beyond Gmail and Drive — most of which go unused because people don't know they exist. This guide covers what they are, what they're good for, and how to get started.</p>
+</div>
+
+<div class="container">
+
+  <div class="section-header">
+    <span class="section-label">Apps in your current license</span>
+    <span class="section-count">Click any app to expand</span>
+  </div>
+
+  <div class="apps-list">
+
+    <!-- NOTEBOOKLM -->
+    <div class="app-card" id="card-notebooklm">
+      <div class="app-header" onclick="toggle('notebooklm')">
+        <div class="app-icon-wrap">
+          <div class="app-icon" style="background:#E1F5EE">📓</div>
+        </div>
+        <div class="app-meta">
+          <div class="app-name">NotebookLM</div>
+          <div class="app-tagline">AI research assistant grounded in your documents</div>
+          <div class="app-tags">
+            <span class="tag tag-free">Included · no extra cost</span>
+            <span class="tag tag-ai">AI-powered</span>
+          </div>
+        </div>
+        <div class="app-arrow">▼</div>
+      </div>
+      <div class="app-body">
+        <div class="app-body-inner">
+          <div class="body-section">
+            <h4>What to use it for</h4>
+            <ul class="use-list">
+              <li>Upload a long report or policy doc — ask it questions, get cited answers</li>
+              <li>Paste in multiple project docs and create a shared team notebook</li>
+              <li>Generate an Audio Overview — a podcast-style summary of any document set</li>
+              <li>Onboard new staff by building a notebook from SOPs and FAQs</li>
+              <li>Research synthesis: upload 10 papers, ask it to compare findings</li>
+            </ul>
+          </div>
+          <div class="body-section">
+            <h4>How to get started</h4>
+            <ol class="how-steps">
+              <li>Go to notebooklm.google.com (sign in with your Pratham account)</li>
+              <li>Click "New Notebook" → add sources: Google Docs, PDFs, URLs, or pasted text</li>
+              <li>Type a question in the chat — answers are cited with source references</li>
+              <li>Try "Audio Overview" to generate a 5-min spoken summary</li>
+              <li>Share the notebook with colleagues for collaborative research</li>
+            </ol>
+            <div class="link-row">
+              <a class="app-link" href="https://notebooklm.google.com" target="_blank">→ notebooklm.google.com</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GOOGLE AI STUDIO -->
+    <div class="app-card" id="card-aistudio">
+      <div class="app-header" onclick="toggle('aistudio')">
+        <div class="app-icon-wrap">
+          <div class="app-icon" style="background:#E6F1FB">🧪</div>
+        </div>
+        <div class="app-meta">
+          <div class="app-name">Google AI Studio</div>
+          <div class="app-tagline">Prompt &amp; test Gemini models directly — no code needed</div>
+          <div class="app-tags">
+            <span class="tag tag-free">Free with Workspace account</span>
+            <span class="tag tag-ai">AI-powered</span>
+            <span class="tag tag-dev">Power users</span>
+          </div>
+        </div>
+        <div class="app-arrow">▼</div>
+      </div>
+      <div class="app-body">
+        <div class="app-body-inner">
+          <div class="body-section">
+            <h4>What to use it for</h4>
+            <ul class="use-list">
+              <li>Test and refine AI prompts before building them into a workflow</li>
+              <li>Upload a PDF or spreadsheet and ask Gemini to analyse or extract data</li>
+              <li>Build a custom system prompt for a repeatable task (e.g. report drafting)</li>
+              <li>Experiment with Gemini's latest models (including 2.5 Pro) for free</li>
+              <li>Generate structured outputs (JSON, tables) from unstructured text</li>
+            </ul>
+          </div>
+          <div class="body-section">
+            <h4>How to get started</h4>
+            <ol class="how-steps">
+              <li>Go to aistudio.google.com — sign in with your Pratham Workspace account</li>
+              <li>Click "New prompt" → choose a model (start with Gemini 2.5 Flash)</li>
+              <li>Type a system prompt (e.g. "You summarise field reports into 3 bullets") then test it</li>
+              <li>Upload files via the paperclip — PDFs, images, CSVs all work</li>
+              <li>Save your prompt and share the link with your team</li>
+            </ol>
+            <div class="link-row">
+              <a class="app-link" href="https://aistudio.google.com" target="_blank">→ aistudio.google.com</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WORKSPACE STUDIO -->
+    <div class="app-card" id="card-wsstudio">
+      <div class="app-header" onclick="toggle('wsstudio')">
+        <div class="app-icon-wrap">
+          <div class="app-icon" style="background:#FAEEDA">⚡</div>
+        </div>
+        <div class="app-meta">
+          <div class="app-name">Workspace Studio</div>
+          <div class="app-tagline">Build no-code AI automations across your Workspace apps</div>
+          <div class="app-tags">
+            <span class="tag tag-free">Included · rolling out now</span>
+            <span class="tag tag-ai">AI automation</span>
+          </div>
+        </div>
+        <div class="app-arrow">▼</div>
+      </div>
+      <div class="app-body">
+        <div class="app-body-inner">
+          <div class="body-section">
+            <h4>What to use it for</h4>
+            <ul class="use-list">
+              <li>Auto-summarise unread emails each morning and send to your Google Chat</li>
+              <li>When someone fills a Google Form → save response to Sheets + notify in Chat</li>
+              <li>After a Meet call → extract action items and draft a follow-up email</li>
+              <li>Label and prioritise incoming emails using Gemini</li>
+              <li>Save email attachments to a Drive folder automatically</li>
+            </ul>
+          </div>
+          <div class="body-section">
+            <h4>How to get started</h4>
+            <ol class="how-steps">
+              <li>Go to studio.workspace.google.com (may still be rolling out — check with Harshit)</li>
+              <li>Browse pre-built templates on the Discover page</li>
+              <li>Or describe your automation in plain language — Gemini builds the flow for you</li>
+              <li>Click "Test run" to verify it works, then turn it on</li>
+              <li>Flows run in the background on any device once active</li>
+            </ol>
+            <div class="link-row">
+              <a class="app-link" href="https://studio.workspace.google.com" target="_blank">→ studio.workspace.google.com</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GEMINI APP -->
+    <div class="app-card" id="card-gemini">
+      <div class="app-header" onclick="toggle('gemini')">
+        <div class="app-icon-wrap">
+          <div class="app-icon" style="background:#F3EEFE">✦</div>
+        </div>
+        <div class="app-meta">
+          <div class="app-name">Gemini App</div>
+          <div class="app-tagline">AI assistant for research, writing, and thinking — with caveats on Starter</div>
+          <div class="app-tags">
+            <span class="tag tag-free">5 prompts/day on Starter</span>
+            <span class="tag tag-ai">AI assistant</span>
+          </div>
+        </div>
+        <div class="app-arrow">▼</div>
+      </div>
+      <div class="app-body">
+        <div class="app-body-inner">
+          <div class="body-section">
+            <h4>What to use it for</h4>
+            <ul class="use-list">
+              <li>Brainstorm frameworks for a proposal or strategy doc</li>
+              <li>Draft a first version of a report, blog, or email</li>
+              <li>Ask it to simplify a complex document into plain language</li>
+              <li>Create a Gem — a reusable AI persona (e.g. "Field report editor")</li>
+              <li>Use Deep Research mode for multi-source topic synthesis</li>
+            </ul>
+          </div>
+          <div class="body-section">
+            <h4>How to get started</h4>
+            <ol class="how-steps">
+              <li>Go to gemini.google.com — sign in with your Pratham account</li>
+              <li>Type a task (e.g. "Help me write an agenda for a program review meeting")</li>
+              <li>Upload a file or paste text as context</li>
+              <li>Note: Starter plan = 5 prompts/day. Use them on high-value tasks</li>
+              <li>Upgrade to Standard for unlimited prompts with advanced model</li>
+            </ol>
+            <div class="link-row">
+              <a class="app-link" href="https://gemini.google.com" target="_blank">→ gemini.google.com</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GOOGLE VIDS -->
+    <div class="app-card" id="card-vids">
+      <div class="app-header" onclick="toggle('vids')">
+        <div class="app-icon-wrap">
+          <div class="app-icon" style="background:#FCEBEB">🎬</div>
+        </div>
+        <div class="app-meta">
+          <div class="app-name">Google Vids</div>
+          <div class="app-tagline">AI-assisted video creation for internal comms and training</div>
+          <div class="app-tags">
+            <span class="tag tag-free">Included · AI features active until May 2026</span>
+            <span class="tag tag-ai">AI video</span>
+          </div>
+        </div>
+        <div class="app-arrow">▼</div>
+      </div>
+      <div class="app-body">
+        <div class="app-body-inner">
+          <div class="body-section">
+            <h4>What to use it for</h4>
+            <ul class="use-list">
+              <li>Create a short training video without recording yourself — use an AI avatar</li>
+              <li>Turn a Docs-based SOP into a narrated walkthrough video</li>
+              <li>Build a program overview video for donors or partners</li>
+              <li>Record a quick explainer with screen + voiceover for remote teams</li>
+              <li>Export directly to Drive and share via link</li>
+            </ul>
+          </div>
+          <div class="body-section">
+            <h4>How to get started</h4>
+            <ol class="how-steps">
+              <li>Go to vids.google.com or open it from the Google apps grid</li>
+              <li>Click "New video" → describe what you want to make</li>
+              <li>Choose a template or let Gemini generate a storyboard for you</li>
+              <li>Add narration: record your voice, use text-to-speech, or pick an AI avatar</li>
+              <li>Preview and export — saves directly to your Drive</li>
+            </ol>
+            <div class="link-row">
+              <a class="app-link" href="https://vids.google.com" target="_blank">→ vids.google.com</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- APPSHEET -->
+    <div class="app-card" id="card-appsheet">
+      <div class="app-header" onclick="toggle('appsheet')">
+        <div class="app-icon-wrap">
+          <div class="app-icon" style="background:#EAF3DE">🔧</div>
+        </div>
+        <div class="app-meta">
+          <div class="app-name">AppSheet</div>
+          <div class="app-tagline">Build custom apps and automations from Google Sheets — no code</div>
+          <div class="app-tags">
+            <span class="tag tag-free">Basic tier included</span>
+            <span class="tag tag-dev">No-code builder</span>
+          </div>
+        </div>
+        <div class="app-arrow">▼</div>
+      </div>
+      <div class="app-body">
+        <div class="app-body-inner">
+          <div class="body-section">
+            <h4>What to use it for</h4>
+            <ul class="use-list">
+              <li>Build a mobile data-entry app for field teams (works offline)</li>
+              <li>Turn a Sheets attendance tracker into a phone-friendly form</li>
+              <li>Create a simple task manager or approval workflow for your team</li>
+              <li>Build a beneficiary registration app without writing a line of code</li>
+              <li>Auto-send notifications when a row in Sheets is updated</li>
+            </ul>
+          </div>
+          <div class="body-section">
+            <h4>How to get started</h4>
+            <ol class="how-steps">
+              <li>Open a Google Sheet with your data</li>
+              <li>Go to Extensions → AppSheet → Create an app</li>
+              <li>AppSheet auto-generates a mobile app from your Sheet structure</li>
+              <li>Customise views, forms, and workflows in the editor</li>
+              <li>Share the app link with your team — works in any browser or the AppSheet app</li>
+            </ol>
+            <div class="link-row">
+              <a class="app-link" href="https://www.appsheet.com" target="_blank">→ appsheet.com</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GOOGLE FORMS (advanced uses) -->
+    <div class="app-card" id="card-forms">
+      <div class="app-header" onclick="toggle('forms')">
+        <div class="app-icon-wrap">
+          <div class="app-icon" style="background:#F5C4B3">📋</div>
+        </div>
+        <div class="app-meta">
+          <div class="app-name">Google Forms + Sheets automation</div>
+          <div class="app-tagline">More powerful than most people realise — especially with automations</div>
+          <div class="app-tags">
+            <span class="tag tag-free">Fully included</span>
+          </div>
+        </div>
+        <div class="app-arrow">▼</div>
+      </div>
+      <div class="app-body">
+        <div class="app-body-inner">
+          <div class="body-section">
+            <h4>What to use it for</h4>
+            <ul class="use-list">
+              <li>Run surveys that auto-populate a live Sheets dashboard</li>
+              <li>Conditional logic — show different questions based on answers</li>
+              <li>Auto-email a confirmation when someone submits a form</li>
+              <li>Use response validation to enforce data quality (e.g. date formats, numeric ranges)</li>
+              <li>Accept file uploads directly into Drive via form submissions</li>
+            </ul>
+          </div>
+          <div class="body-section">
+            <h4>How to get started</h4>
+            <ol class="how-steps">
+              <li>Create a form at forms.google.com</li>
+              <li>Under "Responses" tab → click the Sheets icon to link a live spreadsheet</li>
+              <li>In Forms settings, enable "Email notifications" for each response</li>
+              <li>Add sections and conditional logic via the three-dot menu on each question</li>
+              <li>In Sheets, use Apps Script or Workspace Studio to trigger follow-up actions</li>
+            </ol>
+            <div class="link-row">
+              <a class="app-link" href="https://forms.google.com" target="_blank">→ forms.google.com</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GOOGLE KEEP -->
+    <div class="app-card" id="card-keep">
+      <div class="app-header" onclick="toggle('keep')">
+        <div class="app-icon-wrap">
+          <div class="app-icon" style="background:#FAEEDA">📌</div>
+        </div>
+        <div class="app-meta">
+          <div class="app-name">Google Keep</div>
+          <div class="app-tagline">Fast capture for notes, reminders, and lists — synced across devices</div>
+          <div class="app-tags">
+            <span class="tag tag-free">Fully included</span>
+          </div>
+        </div>
+        <div class="app-arrow">▼</div>
+      </div>
+      <div class="app-body">
+        <div class="app-body-inner">
+          <div class="body-section">
+            <h4>What to use it for</h4>
+            <ul class="use-list">
+              <li>Capture meeting notes on your phone, sync instantly to desktop</li>
+              <li>Set location- or time-based reminders for follow-ups</li>
+              <li>Shared checklists with team members (e.g. event prep)</li>
+              <li>Save images with text — Keep extracts text from photos automatically</li>
+              <li>Pin a note to Google Docs via the Keep sidebar for reference while writing</li>
+            </ul>
+          </div>
+          <div class="body-section">
+            <h4>How to get started</h4>
+            <ol class="how-steps">
+              <li>Go to keep.google.com or install the mobile app</li>
+              <li>Hit the "+" button to create a note, checklist, or voice recording</li>
+              <li>Assign a colour and labels to organise notes by project</li>
+              <li>Click the person icon on a note to share it with a colleague</li>
+              <li>In Google Docs, open the Keep sidebar via Tools → Keep Notepad</li>
+            </ol>
+            <div class="link-row">
+              <a class="app-link" href="https://keep.google.com" target="_blank">→ keep.google.com</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GOOGLE SITES -->
+    <div class="app-card" id="card-sites">
+      <div class="app-header" onclick="toggle('sites')">
+        <div class="app-icon-wrap">
+          <div class="app-icon" style="background:#E6F1FB">🌐</div>
+        </div>
+        <div class="app-meta">
+          <div class="app-name">Google Sites</div>
+          <div class="app-tagline">Build internal wikis, project pages, and resource hubs — no design skills needed</div>
+          <div class="app-tags">
+            <span class="tag tag-free">Fully included</span>
+          </div>
+        </div>
+        <div class="app-arrow">▼</div>
+      </div>
+      <div class="app-body">
+        <div class="app-body-inner">
+          <div class="body-section">
+            <h4>What to use it for</h4>
+            <ul class="use-list">
+              <li>Build a team intranet with links to key docs, forms, and contacts</li>
+              <li>Create a project hub page — embed Sheets, Docs, Slides, and Meet links</li>
+              <li>Onboarding portal for new staff with resources and schedules</li>
+              <li>Program landing page for internal reporting or partner comms</li>
+              <li>Event page with agenda, speakers, and registration form embedded</li>
+            </ul>
+          </div>
+          <div class="body-section">
+            <h4>How to get started</h4>
+            <ol class="how-steps">
+              <li>Go to sites.google.com → click "+" to start a new site</li>
+              <li>Pick a template or start blank — drag-and-drop layout editor</li>
+              <li>Embed Google Docs, Sheets, Slides, Forms, Maps, or YouTube directly</li>
+              <li>Set access: internal-only (Pratham team) or public link</li>
+              <li>Publish and share the URL — no hosting setup required</li>
+            </ol>
+            <div class="link-row">
+              <a class="app-link" href="https://sites.google.com" target="_blank">→ sites.google.com</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GOOGLE LOOKER STUDIO -->
+    <div class="app-card" id="card-looker">
+      <div class="app-header" onclick="toggle('looker')">
+        <div class="app-icon-wrap">
+          <div class="app-icon" style="background:#EAF3DE">📊</div>
+        </div>
+        <div class="app-meta">
+          <div class="app-name">Looker Studio</div>
+          <div class="app-tagline">Free dashboards and data visualisations from Sheets, Drive, or external sources</div>
+          <div class="app-tags">
+            <span class="tag tag-free">Free · separate from Workspace</span>
+            <span class="tag tag-dev">Data viz</span>
+          </div>
+        </div>
+        <div class="app-arrow">▼</div>
+      </div>
+      <div class="app-body">
+        <div class="app-body-inner">
+          <div class="body-section">
+            <h4>What to use it for</h4>
+            <ul class="use-list">
+              <li>Turn a Sheets data dump into an interactive dashboard</li>
+              <li>Build a live program metrics report for leadership or donors</li>
+              <li>Visualise ASER or placement data with charts, maps, and filters</li>
+              <li>Connect multiple data sources into a single report</li>
+              <li>Share a live dashboard link — no login required for viewers</li>
+            </ul>
+          </div>
+          <div class="body-section">
+            <h4>How to get started</h4>
+            <ol class="how-steps">
+              <li>Go to lookerstudio.google.com — sign in with your Pratham account</li>
+              <li>Click "Create → Report" and connect a data source (start with Google Sheets)</li>
+              <li>Add charts, scorecards, and filters from the toolbar</li>
+              <li>Use "Date range" controls to make the report interactive</li>
+              <li>Click Share → get link to share with anyone (no account needed to view)</li>
+            </ol>
+            <div class="link-row">
+              <a class="app-link" href="https://lookerstudio.google.com" target="_blank">→ lookerstudio.google.com</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /apps-list -->
+
+  <!-- UPGRADE STRIP -->
+  <div class="upgrade-strip">
+    <div>
+      <h3>Ready to unlock the full AI toolkit?</h3>
+      <p>The <strong>Business Standard upgrade ($16.80/user/mo)</strong> adds meeting recording, AI note-taking in Meet, and full Gemini integration across Gmail, Docs, Sheets, and Slides — plus 2 TB storage. Sign up by 31 March and we'll activate within 2 business days.</p>
+    </div>
+    <a href="#" class="upgrade-btn">Sign up →</a>
+  </div>
+
+</div><!-- /container -->
+
+<div class="footer">
+  Pratham International · Google Workspace · March 2026 &nbsp;·&nbsp; Internal use only &nbsp;·&nbsp; Questions? Reach Harshit on Slack
+</div>
+
+<script>
+function toggle(id) {
+  const card = document.getElementById('card-' + id);
+  card.classList.toggle('open');
+}
+</script>
+</body>
+</html>
