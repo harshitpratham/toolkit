@@ -268,47 +268,6 @@ body {
 }
 .app-link:hover { text-decoration: underline; }
 
-/* ── UPGRADE STRIP ── */
-.upgrade-strip {
-  background: var(--ink);
-  color: white;
-  border-radius: 12px;
-  padding: 1.75rem 2rem;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 1.5rem;
-  align-items: center;
-  margin-bottom: 3rem;
-}
-@media (max-width: 560px) {
-  .upgrade-strip { grid-template-columns: 1fr; }
-}
-.upgrade-strip h3 {
-  font-family: 'Instrument Serif', serif;
-  font-size: 1.2rem;
-  font-weight: 400;
-  color: white;
-  margin-bottom: 0.4rem;
-}
-.upgrade-strip p {
-  font-size: 13px;
-  color: rgba(255,255,255,0.6);
-  line-height: 1.6;
-}
-.upgrade-strip p strong { color: rgba(255,255,255,0.85); font-weight: 400; }
-.upgrade-btn {
-  display: inline-block;
-  background: white;
-  color: var(--ink);
-  text-decoration: none;
-  font-size: 12px;
-  font-weight: 500;
-  padding: 10px 22px;
-  border-radius: 7px;
-  white-space: nowrap;
-  transition: opacity 0.15s;
-}
-.upgrade-btn:hover { opacity: 0.85; }
 
 /* ── FOOTER ── */
 .footer {
@@ -482,9 +441,9 @@ body {
         </div>
         <div class="app-meta">
           <div class="app-name">Gemini App</div>
-          <div class="app-tagline">AI assistant for research, writing, and thinking — with caveats on Starter</div>
+          <div class="app-tagline">AI assistant for research, writing, and thinking</div>
           <div class="app-tags">
-            <span class="tag tag-free">5 prompts/day on Starter</span>
+            <span class="tag tag-free">Included</span>
             <span class="tag tag-ai">AI assistant</span>
           </div>
         </div>
@@ -508,8 +467,7 @@ body {
               <li>Go to gemini.google.com — sign in with your Pratham account</li>
               <li>Type a task (e.g. "Help me write an agenda for a program review meeting")</li>
               <li>Upload a file or paste text as context</li>
-              <li>Note: Starter plan = 5 prompts/day. Use them on high-value tasks</li>
-              <li>Upgrade to Standard for unlimited prompts with advanced model</li>
+              <li>Upload a file or paste text to give it additional context</li>
             </ol>
             <div class="link-row">
               <a class="app-link" href="https://gemini.google.com" target="_blank">→ gemini.google.com</a>
@@ -788,14 +746,6 @@ body {
 
   </div><!-- /apps-list -->
 
-  <!-- UPGRADE STRIP -->
-  <div class="upgrade-strip">
-    <div>
-      <h3>Ready to unlock the full AI toolkit?</h3>
-      <p>The <strong>Business Standard upgrade ($16.80/user/mo)</strong> adds meeting recording, AI note-taking in Meet, and full Gemini integration across Gmail, Docs, Sheets, and Slides — plus 2 TB storage. Sign up by 31 March and we'll activate within 2 business days.</p>
-    </div>
-    <a href="#" class="upgrade-btn">Sign up →</a>
-  </div>
 
 </div><!-- /container -->
 
